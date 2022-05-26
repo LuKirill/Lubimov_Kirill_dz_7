@@ -3,3 +3,8 @@ adminapp
 authapp
 mainapp
 settings
+my_project
+adminapp
+authapp
+mainapp
+settings
