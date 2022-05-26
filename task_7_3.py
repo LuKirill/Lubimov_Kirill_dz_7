@@ -15,27 +15,27 @@
 # возможные исключительные ситуации; это реальная задача, которая решена, например, во
 # фреймворке django.
 
+#######################################################################################################################
+
 import os, shutil
 
-path_templates = r'C:\Users\kiril\PycharmProjects\Lubimov_Kirill_dz_7'
-templates_folder = os.path.join(path_templates, "templates")
-try:
-    os.mkdir(templates_folder)
-except FileExistsError as e:
-    print(f'{e}')
-else:
-    print(f'Папка успешно создана: {path_templates}')
+folder = 'my_project'
+for root, dirs, files in os.walk('my_project'):
+    for item in dirs:
+        if item == 'templates':
+            shutil.copytree(os.path.join(root, item),
+                            os.path.join(folder, 'templates'),
+                            dirs_exist_ok=True)
 
-root_src_dir = r'C:\Users\kiril\PycharmProjects\Lubimov_Kirill_dz_7\my_project'
-root_dst_dir = r'C:\Users\kiril\PycharmProjects\Lubimov_Kirill_dz_7\templates'
-
-for src_dir, dirs, files in os.walk(root_src_dir):
-    dst_dir = src_dir.replace(root_src_dir, root_dst_dir, 1)
-    if not os.path.exists(dst_dir):
-        os.makedirs(dst_dir)
-    for file_ in files:
-        src_file = os.path.join(src_dir, file_)
-        dst_file = os.path.join(dst_dir, file_)
-        if os.path.exists(dst_dir):
-            os.remove(dst_file)
-        shutil.copy(src_file, dst_dir)
+#######################################################################################################################
+#
+# import os, shutil
+#
+# way = r'my_project\templates'
+# for root, dirs, files in os.walk('my_project'):
+#     if root == way:
+#         break
+#     for file in files:
+#         if file.split('.', 1)[-1].lower() == 'html':
+#             os.makedirs(os.path.join(way, root.split('\\')[-1]), exist_ok=True)
+#             shutil.copyfile(os.path.join(root, file), os.path.join(way, os.path.join(root.split('\\')[-1]), file))
